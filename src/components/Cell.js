@@ -12,7 +12,6 @@ function Cell({ cell, onClick, isDisabled}) {
         // Run if the tile has not been pressed
         if(tileMessage === undefined){
             if(!tile.visible){
-                // console.log("This Tile:", tile, "has been pressed");
                 if(tile.hasMine){
                     // Game over
                     onClick(tile.index, event);
@@ -31,10 +30,9 @@ function Cell({ cell, onClick, isDisabled}) {
     const handleClick = (event, tile) => {
         event.preventDefault();
 
-        // console.log("Right button clicked");
         console.log("This tile:", tile, "has a mine");
         
-        // You can remove marked bombs
+        // Remove marked bombs
         if(tileMessage === 'flagged'){
             setTileMessage("default");
 

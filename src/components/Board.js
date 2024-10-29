@@ -17,16 +17,9 @@ class Board extends Component {
     }
 
     createNewBoard = () => {
-        // console.log("Updating Board state");
-
         const newBoard = createBoard(this.state.boardSize, this.state.numberOfMines);
 
-        // console.log("State board:",this.state.board);
-        // console.log("Variable info:", newBoard);
-
-        this.setState ({board: newBoard}, () =>{
-            // console.log("Update state of board:", this.state.board);
-        });
+        this.setState ({board: newBoard});
     }
 
     componentDidMount(){
@@ -34,19 +27,16 @@ class Board extends Component {
     }
 
     updateBoard = (cellIndex, event) => {
-        // console.log("Board has received index of tile:", cellIndex);
         const updateCell = this.state.board.map(tile =>{
             if(tile.index === cellIndex){
                 if(tile.hasMine){
                     if(event.button === 0){
                         // Game Over
-                        // console.log("Game over");
                         this.setState({...tile, visible: true, gameLostStatus: true});
                     }else if(event.button === 2){
                         // Flagged tile
                         return {...tile, visible: true};
                     }
-                  
                 }else{
                     return {...tile, visible: true};
                 }
@@ -79,6 +69,7 @@ class Board extends Component {
                         ))}
                     </ul>
                 </div>
+                
                 {this.state.gameLostStatus && (
                     <>
                         <h2>Game over</h2>
