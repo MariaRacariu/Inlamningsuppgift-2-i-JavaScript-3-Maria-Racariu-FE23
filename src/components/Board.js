@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import createBoard from "../utils";
 import Cell from './Cell';
+import styles from "./Board.module.css";
 
 class Board extends Component {
     constructor(props) {
@@ -34,16 +35,15 @@ class Board extends Component {
 
     updateBoard = (cellIndex, event) => {
         // console.log("Board has received index of tile:", cellIndex);
-
-        // Update visibility of tile clicked
         const updateCell = this.state.board.map(tile =>{
-
             if(tile.index === cellIndex){
                 if(tile.hasMine){
                     if(event.button === 0){
+                        // Game Over
                         // console.log("Game over");
-                        this.setState({gameLostStatus: true});
+                        this.setState({...tile, visible: true, gameLostStatus: true});
                     }else if(event.button === 2){
+                        // Flagged tile
                         return {...tile, visible: true};
                     }
                   
@@ -55,15 +55,13 @@ class Board extends Component {
             return tile;
         })
 
-        // Update board with clicked tile
-        this.setState({board: updateCell});
+        const allTilesVisible = updateCell.every(tile => tile.visible || tile.hasMine);
 
-        this.state.board.every((tile) =>{
-            if(tile.visible){
-                this.setState({gameWonStatus: true});
-            }
-            return this.gameWonStatus;
-        })
+        this.setState({ 
+            gameWonStatus: allTilesVisible,
+            board: updateCell, 
+        });
+    
     }
 
     resetGame = () =>{
@@ -74,16 +72,17 @@ class Board extends Component {
         return (
             <>
                 <h1>Baby Minesweeper</h1>
-                <ul className='board'>
-                    {this.state.board && this.state.board.map(tile => (
-                        <Cell key={tile.index} cell={tile} onClick={this.updateBoard} isDisabled={this.state.gameLostStatus}/>
-                    ))}
-                </ul>
-
+                <div className={styles.container}>
+                    <ul className={styles.board}>
+                        {this.state.board && this.state.board.map(tile => (
+                            <Cell key={tile.index} cell={tile} onClick={this.updateBoard} isDisabled={this.state.gameLostStatus}/>
+                        ))}
+                    </ul>
+                </div>
                 {this.state.gameLostStatus && (
                     <>
                         <h2>Game over</h2>
-                        <button onClick={this.resetGame}>Restart</button>
+                        <button onClick={this.resetGame} className={styles.button}>Restart</button>
                     </> 
                 )}
 
@@ -91,10 +90,11 @@ class Board extends Component {
                     this.state.gameWonStatus &&(
                         <>  
                             <h2>Game won</h2>
-                            <button onClick={this.resetGame}>Restart</button>
+                            <button onClick={this.resetGame} className={styles.button}>Restart</button>
                         </>
                     )
                 }
+               
             </>
         );
     }

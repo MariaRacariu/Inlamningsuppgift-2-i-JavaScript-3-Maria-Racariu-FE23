@@ -1,0 +1,22 @@
+.container{
+    border: outset 5px;
+    max-width: 154px;
+   
+   padding-bottom: 1px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
+    list-style: none;
+    max-width: 140px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.button{
+    border: outset 5px;
+    font-size: 18px;
+}
