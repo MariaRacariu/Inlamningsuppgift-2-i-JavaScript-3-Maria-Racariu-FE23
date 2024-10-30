@@ -10,16 +10,10 @@ function Cell({ cell, onClick, isDisabled }) {
         console.log("Tile clicked info:", tile);
 
         // Run if the tile has not been pressed
-<<<<<<< Updated upstream
-        if(tileMessage === undefined){
-            if(!tile.visible){
-                // console.log("This Tile:", tile, "has been pressed");
-                if(tile.hasMine){
-=======
         if (tileMessage === undefined) {
             if (!tile.visible) {
+                // console.log("This Tile:", tile, "has been pressed");
                 if (tile.hasMine) {
->>>>>>> Stashed changes
                     // Game over
                     onClick(tile.index, event);
                     setTileMessage("hasMine");
@@ -38,29 +32,17 @@ function Cell({ cell, onClick, isDisabled }) {
         event.preventDefault();
 
         // console.log("Right button clicked");
-        console.log("This tile:", tile, "has a mine");
-<<<<<<< Updated upstream
-        
-        // You can remove marked bombs
-        if(tileMessage === 'flagged'){
-            setTileMessage("default");
-=======
->>>>>>> Stashed changes
+        console.log("This tile:", tile, "is flagged");
+
+        onClick(tile.index, event);
 
         // Remove marked bombs
         if (tileMessage === 'flagged') {
             setTileMessage(undefined);
-
-            if (tile.hasMine === true && tile.visible === true) {
-                onClick(tile.index, event);
-            }
-
+            onClick(tile.index, event);
         } else {
-            setTileMessage("flagged");
-
-            if (tile.hasMine === true) {
-                onClick(tile.index, event);
-            }
+            setTileMessage('flagged');
+            onClick(tile.index, event);
         }
     };
 

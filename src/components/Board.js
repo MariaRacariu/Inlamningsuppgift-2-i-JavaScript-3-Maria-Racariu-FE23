@@ -21,19 +21,10 @@ class Board extends Component {
 
         const newBoard = createBoard(this.state.boardSize, this.state.numberOfMines);
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        // console.log("State board:",this.state.board);
-=======
->>>>>>> Stashed changes
-        // console.log("Variable info:", newBoard);
-
         this.setState({ board: newBoard }, () => {
-            // console.log("Update state of board:", this.state.board);
+            console.log("Update state of board:", this.state.board);
         });
-=======
-        this.setState({ board: newBoard });
->>>>>>> Stashed changes
+
     }
 
     componentDidMount() {
@@ -41,54 +32,29 @@ class Board extends Component {
     }
 
     updateBoard = (cellIndex, event) => {
-<<<<<<< Updated upstream
+
         // console.log("Board has received index of tile:", cellIndex);
+
         const updateCell = this.state.board.map(tile => {
             if (tile.index === cellIndex) {
-                if (tile.hasMine) {
-                    if (event.button === 0) {
-                        // Game Over
-                        // console.log("Game over");
-<<<<<<< Updated upstream
-                        this.setState({...tile, visible: true, gameLostStatus: true});
-                    }else if(event.button === 2){
-=======
-        const updateCell = this.state.board.map(tile => {
-            if (tile.index === cellIndex) {
-                if (tile.hasMine) {
-                    if (event.button === 0) {
+                if (event.button === 0) {
+                    if (tile.hasMine) {
                         // Game Over
                         this.setState({ ...tile, visible: true, gameLostStatus: true });
-                    } else if (event.button === 2) {
->>>>>>> Stashed changes
-                        // Flagged tile
-                        if (tile.visible === true) {
-                            return { ...tile, visible: false };
-                        } else {
-                            return { ...tile, visible: true };
-                        }
-                    }
-<<<<<<< Updated upstream
-                  
-                }else{
-                    return {...tile, visible: true};
-=======
-                } else {
-                    return { ...tile, visible: true };
->>>>>>> Stashed changes
-=======
-                        this.setState({ ...tile, visible: true, gameLostStatus: true });
-                    } else if (event.button === 2) {
-                        // Flagged tile
+                    } else {
                         return { ...tile, visible: true };
                     }
-
-                } else {
-                    return { ...tile, visible: true };
->>>>>>> Stashed changes
+                } else if (event.button === 2) {
+                    if (tile.visible && !tile.hasMine) {
+                        return { ...tile, visible: false };
+                    } else if (!tile.visible && !tile.hasMine) {
+                        return { ...tile, visible: false };
+                    } else {
+                        return { ...tile, visible: true };
+                    }
                 }
+                return { ...tile, visible: true };
             }
-
             return tile;
         })
 
@@ -97,6 +63,8 @@ class Board extends Component {
         this.setState({
             gameWonStatus: allTilesVisible,
             board: updateCell,
+        }, () => {
+            console.log("Update state of board:", this.state.board);
         });
 
     }
@@ -116,16 +84,14 @@ class Board extends Component {
                         ))}
                     </ul>
                 </div>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
-                {this.state.gameLostStatus && (
-                    <>
-                        <h2>Game over</h2>
-                        <button onClick={this.resetGame} className={styles.button}>Restart</button>
-                    </>
-                )}
+                {
+                    this.state.gameLostStatus && (
+                        <>
+                            <h2>Game over</h2>
+                            <button onClick={this.resetGame} className={styles.button}>Restart</button>
+                        </>
+                    )
+                }
 
                 {
                     this.state.gameWonStatus && (
@@ -136,10 +102,6 @@ class Board extends Component {
                     )
                 }
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
             </>
         );
     }
