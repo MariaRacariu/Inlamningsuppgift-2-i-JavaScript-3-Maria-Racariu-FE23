@@ -34,8 +34,6 @@ function Cell({ cell, onClick, isDisabled }) {
         // console.log("Right button clicked");
         console.log("This tile:", tile, "is flagged");
 
-        onClick(tile.index, event);
-
         // Remove marked bombs
         if (tileMessage === 'flagged') {
             setTileMessage(undefined);
