@@ -22,10 +22,13 @@ class Board extends Component {
         const newBoard = createBoard(this.state.boardSize, this.state.numberOfMines);
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         // console.log("State board:",this.state.board);
+=======
+>>>>>>> Stashed changes
         // console.log("Variable info:", newBoard);
 
-        this.setState ({board: newBoard}, () =>{
+        this.setState({ board: newBoard }, () => {
             // console.log("Update state of board:", this.state.board);
         });
 =======
@@ -40,12 +43,13 @@ class Board extends Component {
     updateBoard = (cellIndex, event) => {
 <<<<<<< Updated upstream
         // console.log("Board has received index of tile:", cellIndex);
-        const updateCell = this.state.board.map(tile =>{
-            if(tile.index === cellIndex){
-                if(tile.hasMine){
-                    if(event.button === 0){
+        const updateCell = this.state.board.map(tile => {
+            if (tile.index === cellIndex) {
+                if (tile.hasMine) {
+                    if (event.button === 0) {
                         // Game Over
                         // console.log("Game over");
+<<<<<<< Updated upstream
                         this.setState({...tile, visible: true, gameLostStatus: true});
                     }else if(event.button === 2){
 =======
@@ -69,6 +73,16 @@ class Board extends Component {
                 }else{
                     return {...tile, visible: true};
 =======
+                } else {
+                    return { ...tile, visible: true };
+>>>>>>> Stashed changes
+=======
+                        this.setState({ ...tile, visible: true, gameLostStatus: true });
+                    } else if (event.button === 2) {
+                        // Flagged tile
+                        return { ...tile, visible: true };
+                    }
+
                 } else {
                     return { ...tile, visible: true };
 >>>>>>> Stashed changes
@@ -122,7 +136,10 @@ class Board extends Component {
                     )
                 }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             </>
         );
     }
