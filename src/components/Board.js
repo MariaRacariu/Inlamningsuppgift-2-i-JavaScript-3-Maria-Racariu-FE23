@@ -21,19 +21,24 @@ class Board extends Component {
 
         const newBoard = createBoard(this.state.boardSize, this.state.numberOfMines);
 
+<<<<<<< Updated upstream
         // console.log("State board:",this.state.board);
         // console.log("Variable info:", newBoard);
 
         this.setState ({board: newBoard}, () =>{
             // console.log("Update state of board:", this.state.board);
         });
+=======
+        this.setState({ board: newBoard });
+>>>>>>> Stashed changes
     }
 
-    componentDidMount(){
-       this.createNewBoard();
+    componentDidMount() {
+        this.createNewBoard();
     }
 
     updateBoard = (cellIndex, event) => {
+<<<<<<< Updated upstream
         // console.log("Board has received index of tile:", cellIndex);
         const updateCell = this.state.board.map(tile =>{
             if(tile.index === cellIndex){
@@ -43,12 +48,30 @@ class Board extends Component {
                         // console.log("Game over");
                         this.setState({...tile, visible: true, gameLostStatus: true});
                     }else if(event.button === 2){
+=======
+        const updateCell = this.state.board.map(tile => {
+            if (tile.index === cellIndex) {
+                if (tile.hasMine) {
+                    if (event.button === 0) {
+                        // Game Over
+                        this.setState({ ...tile, visible: true, gameLostStatus: true });
+                    } else if (event.button === 2) {
+>>>>>>> Stashed changes
                         // Flagged tile
-                        return {...tile, visible: true};
+                        if (tile.visible === true) {
+                            return { ...tile, visible: false };
+                        } else {
+                            return { ...tile, visible: true };
+                        }
                     }
+<<<<<<< Updated upstream
                   
                 }else{
                     return {...tile, visible: true};
+=======
+                } else {
+                    return { ...tile, visible: true };
+>>>>>>> Stashed changes
                 }
             }
 
@@ -57,14 +80,14 @@ class Board extends Component {
 
         const allTilesVisible = updateCell.every(tile => tile.visible || tile.hasMine);
 
-        this.setState({ 
+        this.setState({
             gameWonStatus: allTilesVisible,
-            board: updateCell, 
+            board: updateCell,
         });
-    
+
     }
 
-    resetGame = () =>{
+    resetGame = () => {
         window.location.reload();
     }
 
@@ -75,26 +98,31 @@ class Board extends Component {
                 <div className={styles.container}>
                     <ul className={styles.board}>
                         {this.state.board && this.state.board.map(tile => (
-                            <Cell key={tile.index} cell={tile} onClick={this.updateBoard} isDisabled={this.state.gameLostStatus}/>
+                            <Cell key={tile.index} cell={tile} onClick={this.updateBoard} isDisabled={this.state.gameLostStatus} />
                         ))}
                     </ul>
                 </div>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                 {this.state.gameLostStatus && (
                     <>
                         <h2>Game over</h2>
                         <button onClick={this.resetGame} className={styles.button}>Restart</button>
-                    </> 
+                    </>
                 )}
 
                 {
-                    this.state.gameWonStatus &&(
-                        <>  
+                    this.state.gameWonStatus && (
+                        <>
                             <h2>Game won</h2>
                             <button onClick={this.resetGame} className={styles.button}>Restart</button>
                         </>
                     )
                 }
-               
+
+
             </>
         );
     }
